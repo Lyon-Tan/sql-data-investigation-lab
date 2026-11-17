@@ -2,6 +2,22 @@
 
 This simulated enterprise data troubleshooting lab uses a synthetic staging database to investigate transaction inconsistencies. It deliberately permits duplicate business IDs, missing customers, missing payments, and inconsistent amounts. This is a beginner-to-intermediate learning project, not a production schema, an SAP integration, or a claim of professional support experience.
 
+## Language Notes
+
+This repository uses English as the primary technical language.
+
+Short Traditional Chinese and conversational Malaysian Malay notes are included to support learning and interview revision.
+
+Technical terms are intentionally kept in English where commonly used in the industry.
+
+Traditional Chinese:
+繁中備註主要用來快速理解和複習技術概念，部分常用技術詞會保留英文。
+
+Bahasa Melayu:
+Nota BM guna gaya yang biasa ditutur di Malaysia supaya lebih senang faham dan explain masa interview. Istilah technical yang biasa digunakan akan kekal dalam English.
+
+See [SQL Learning Notes](LEARNING_NOTES.md) for concise revision of filtering, JOINs, aggregation, NULLs, and reconciliation.
+
 ## Run
 
 Use a fresh SQLite database. From this project folder, open the SQLite CLI and enter:
@@ -45,6 +61,32 @@ Reconciliation compares expected values with independently recorded actual value
 
 During a production incident, confirm the scope and time window, use approved read-only access, reproduce the discrepancy, inspect joins and aggregates, correlate logs, validate the cause, and seek approval for a correction. Run targeted queries with appropriate indexes and review execution plans before large scans. These queries demonstrate investigation only; they do not update data.
 
+## Quick Interview Revision
+
+### Why LEFT JOIN for troubleshooting?
+
+English: Preserve every left-side record, then check a right-side key for NULL to identify missing matches.
+
+> 🇹🇼 繁中備註：保留左邊全部資料，再用右邊 key 的 NULL 找出缺少的 matching record。
+>
+> 🇲🇾 BM: Kekalkan semua rekod kiri, kemudian check key kanan yang NULL untuk cari rekod yang tak match.
+
+### WHERE versus HAVING
+
+English: WHERE filters rows before grouping; HAVING filters aggregate groups.
+
+> 🇹🇼 繁中備註：`WHERE` 先篩選每筆資料，`HAVING` 再篩選分組後的結果。
+>
+> 🇲🇾 BM: `WHERE` tapis row sebelum grouping; `HAVING` tapis hasil selepas aggregate.
+
+### How do you reconcile transactions?
+
+English: Aggregate payments at the transaction level before comparing expected and actual amounts; investigate duplicates and unknown values first.
+
+> 🇹🇼 繁中備註：先按 transaction 加總付款，再比較 expected 和 actual；重複和未知金額要先調查。
+>
+> 🇲🇾 BM: Jumlahkan payment ikut transaction dulu, baru banding expected dengan actual. Siasat duplicate dan amount yang tak diketahui dahulu.
+
 ## Interview questions and answers
 
 **WHERE versus HAVING?** WHERE filters individual rows before grouping. HAVING filters the resulting groups.
@@ -58,3 +100,7 @@ During a production incident, confirm the scope and time window, use approved re
 **Why not use floating-point amounts?** Integer cents represent this lab's fixed two-decimal currency amounts exactly. Real multi-currency systems require explicit precision and currency rules.
 
 **How would you investigate a mismatch?** Verify scope, duplicates, partial payments, status, currency, and timing before comparing totals and checking logs.
+
+> 🇹🇼 繁中備註：mismatch 不一定是付款錯誤，也可能是 JOIN 放大筆數、分次付款或時間差；先檢查比較範圍。
+>
+> 🇲🇾 BM: Mismatch tak semestinya payment salah. Mungkin JOIN gandakan row, ada split payment atau timing berbeza. Semak skop perbandingan dulu.
