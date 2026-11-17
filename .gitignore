@@ -1,0 +1,33 @@
+# Local databases, journals, and Python caches
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+__pycache__/
+*.py[cod]
+.venv/
+
+# Local configuration and sensitive files
+.env
+.env.*
+.aws/
+.ssh/
+*.pem
+*.key
+credentials.*
+secrets.*
+
+# Editor, operating system, and temporary development files
+.vscode/
+.idea/
+.codex/
+.agents/
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.bak
+*.swp
+*~
